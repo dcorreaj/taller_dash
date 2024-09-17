@@ -37,7 +37,11 @@ def load_data():
     # Establecer la columna 'time' como índice del DataFrame
     df.set_index('time', inplace=True)
 
-    return df
+    # Obtener el rango de fechas
+    min_date = df.index.min().date()
+    max_date = df.index.max().date()
+
+    return df, min_date, max_date
 
 
 
