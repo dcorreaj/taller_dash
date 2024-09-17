@@ -19,7 +19,7 @@ server = app.server
 app.config.suppress_callback_exceptions = True
 
   
-# Load data from csv
+# Load data from csv  
 def load_data():
     # Cargar el archivo CSV en un DataFrame
     df = pd.read_csv("datos_energia.csv")
@@ -27,22 +27,19 @@ def load_data():
     # Eliminar espacios en blanco en los nombres de las columnas
     df.columns = df.columns.str.strip()
 
-    # Verificar que la columna 'fecha' exista
+    # Verificar que la columna 'time' exista
     if 'time' in df.columns:
-        # Convertir la columna 'fecha' al formato datetime, ajustando el formato
+        # Convertir la columna 'time' al formato datetime, ajustando el formato
         df['time'] = pd.to_datetime(df['time'], format="%d/%m/%Y %H:%M")
     else:
-        raise KeyError("'fecha' no se encuentra en las columnas del archivo CSV.")
+        raise KeyError("'time' no se encuentra en las columnas del archivo CSV.")
 
-    # Establecer la columna 'fecha' como índice del DataFrame
+    # Establecer la columna 'time' como índice del DataFrame
     df.set_index('time', inplace=True)
 
     return df
 
-    
 
-# Cargar datos
-data = load_data()
 
 # Graficar serie
 def plot_series(data, initial_date, proy):
