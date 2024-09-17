@@ -24,13 +24,19 @@ def load_data():
     # Cargar el archivo CSV en un DataFrame
     df = pd.read_csv("datos_energia.csv")
     
-    # Convertir la columna 'fecha' a formato datetime, especificando el formato correcto
-    df['fecha'] = pd.to_datetime(df['fecha'], format="%d/%m/%Y %H:%M")
+    # Eliminar espacios en blanco en los nombres de las columnas
+    df.columns = df.columns.str.strip()
+
+    # Verificar que la columna 'fecha' exista
+    if 'fecha' in df.columns:
+        # Convertir la columna 'fecha' al formato datetime, ajustando el formato
+        df['fecha'] = pd.to_datetime(df['fecha'], format="%d/%m/%Y %H:%M")
+    else:
+        raise KeyError("'fecha' no se encuentra en las columnas del archivo CSV.")
 
     # Establecer la columna 'fecha' como índice del DataFrame
     df.set_index('fecha', inplace=True)
 
-    # Retornar el DataFrame con los datos cargados y procesados
     return df
 
     
