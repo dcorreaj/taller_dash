@@ -28,14 +28,14 @@ def load_data():
     df.columns = df.columns.str.strip()
 
     # Verificar que la columna 'fecha' exista
-    if 'fecha' in df.columns:
+    if 'time' in df.columns:
         # Convertir la columna 'fecha' al formato datetime, ajustando el formato
-        df['fecha'] = pd.to_datetime(df['fecha'], format="%d/%m/%Y %H:%M")
+        df['time'] = pd.to_datetime(df['time'], format="%d/%m/%Y %H:%M")
     else:
         raise KeyError("'fecha' no se encuentra en las columnas del archivo CSV.")
 
     # Establecer la columna 'fecha' como índice del DataFrame
-    df.set_index('fecha', inplace=True)
+    df.set_index('time', inplace=True)
 
     return df
 
